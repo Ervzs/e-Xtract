@@ -8,8 +8,8 @@ The organization is divided into categories based on functionality, as described
 
 - [BLUEPRINTS](#blueprints)
   - MODELS
-    - chatbot
-    - image-proc
+    - chatbot folder
+    - image-proc folder
     - extract.py
   - ROUTING
     - routing.py
@@ -24,17 +24,30 @@ The organization is divided into categories based on functionality, as described
 
 ---
 
+## ***Note**: Since nakablueprint na siya, baka need mo rin i-call yung folder kung san siya nakalagay para macall siya*
+**Example**:
+
+```html
+from blueprints.views.views import views
+from blueprints.routing.routing import dispose
+from blueprints.models.extract import extract
+```
+
+
+
 ## Explanation
 
 ### BLUEPRINTS
+
+   
 
 Under the `blueprints` folder, the functionality is organized into the following categories:
 
    ***Note**: The following can be modified as needed depending on further research and decisions*
 
 - **MODELS** contains logic for handling models:
-  - **chatbot**: Contains logic for chatbot functionality.
-  - **image-proc**: Handles image processing logic.
+  - **chatbot folder**: Contains logic src for chatbot functionality.
+  - **image-proc folder**: Handles image processing logic src.
   - **extract.py**: Responsible for rendering `extract.html`.
 
    ***Note**: Pwede siguro pagisahin yang tatlong yan, finalize nalang natin pag mas navisualize na*
