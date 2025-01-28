@@ -7,13 +7,13 @@ The organization is divided into categories based on functionality, as described
 ## Structure
 
 - [BLUEPRINTS](#blueprints)
-  - [MODELS](#models)
+  - MODELS
     - chatbot
     - image-proc
     - extract.py
-  - [ROUTING](#routing)
+  - ROUTING
     - routing.py
-  - [VIEWS](#views)
+  - VIEWS
     - views.py
 - [STATIC](#static)
   - images folder
