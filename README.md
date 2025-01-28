@@ -10,18 +10,18 @@ The organization is divided into categories based on functionality, as described
   - MODELS
     - chatbot folder
     - image-proc folder
-    - extract.py
+    - extract.py (flask bp)
   - ROUTING
-    - routing.py
+    - routing.py (flask bp)
   - VIEWS
-    - views.py
+    - views.py (flask bp)
 - [STATIC](#static)
   - images folder
   - js src
   - css src
 - [TEMPLATES](#templates)
   - html srcs
-
+-app.py (application entry point [main flask])
 ---
 
 ## ***Note**: Since nakablueprint na siya, baka need mo rin i-call yung folder kung san siya nakalagay para macall siya*
