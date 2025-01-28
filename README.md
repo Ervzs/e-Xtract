@@ -21,7 +21,7 @@ The organization is divided into categories based on functionality, as described
   - css src
 - [TEMPLATES](#templates)
   - html srcs
--app.py (application entry point [main flask])
+- app.py (application entry point [main flask])
 ---
 
 ## ***Note**: Since nakablueprint na siya, baka need mo rin i-call yung folder kung san siya nakalagay para macall siya*
