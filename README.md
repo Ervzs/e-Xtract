@@ -30,18 +30,18 @@ The organization is divided into categories based on functionality, as described
 
 Under the `blueprints` folder, the functionality is organized into the following categories:
 
-- **MODELS** contains logic for handling core functionalities:
+- **MODELS** contains logic for handling models:
   - **chatbot**: Contains logic for chatbot functionality.
   - **image-proc**: Handles image processing logic.
   - **extract.py**: Responsible for rendering `extract.html`.
 
-  **Note**: These components can potentially be merged into one Python file, depending on the project requirements.
+   ***Note**: The following can be modified as needed depending on further research and decisions*
 
 - **ROUTING** is responsible for backend routing logic:
   - **routing.py**: Contains backend logic for routing, including the **disposal routing** algorithm (Dijkstra's) and rendering of the `disposal-sites.html` page.
 
 - **VIEWS** contains the rendering logic for HTML files:
-  - **views.py**: Primarily responsible for rendering HTML pages with minimal backend logic.
+  - **views.py**: Primarily responsible for rendering HTML pages with minimal to no backend logic.
 
 ---
 
