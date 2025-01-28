@@ -26,26 +26,26 @@ The organization is divided into categories based on functionality, as described
 
 ## Explanation
 
-### [BLUEPRINTS](#blueprints)
+### BLUEPRINTS
 
 Under the `blueprints` folder, the functionality is organized into the following categories:
 
-- **[MODELS](#models)** contains logic for handling core functionalities:
+- **MODELS** contains logic for handling core functionalities:
   - **chatbot**: Contains logic for chatbot functionality.
   - **image-proc**: Handles image processing logic.
   - **extract.py**: Responsible for rendering `extract.html`.
 
   **Note**: These components can potentially be merged into one Python file, depending on the project requirements.
 
-- **[ROUTING](#routing)** is responsible for backend routing logic:
+- **ROUTING** is responsible for backend routing logic:
   - **routing.py**: Contains backend logic for routing, including the **disposal routing** algorithm (Dijkstra's) and rendering of the `disposal-sites.html` page.
 
-- **[VIEWS](#views)** contains the rendering logic for HTML files:
+- **VIEWS** contains the rendering logic for HTML files:
   - **views.py**: Primarily responsible for rendering HTML pages with minimal backend logic.
 
 ---
 
-### [STATIC](#static)
+### STATIC
 
 The `static` folder stores all static files that are served directly to the user. These files include images, CSS, and JavaScript assets.
 
@@ -57,7 +57,7 @@ The `static` folder stores all static files that are served directly to the user
 
 ---
 
-### [TEMPLATES](#templates)
+### TEMPLATES
 
 The `templates` folder contains all HTML files that are rendered by Flask. Flask will look for the HTML templates in this folder.
 
@@ -69,4 +69,4 @@ To link static files (CSS, JS, images) in your templates, use the following synt
 
 #### CSS
 ```html
-<link rel="stylesheet" href="{{ url_for('static', filename='css/test.css') }}">
+<link rel="stylesheet" href="static/test.css">
