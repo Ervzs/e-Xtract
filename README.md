@@ -68,7 +68,7 @@ The `static` folder stores all static files that are served directly to the user
 - **css src**: Contains the CSS files for styling the web pages.
 - **js src**: Contains JavaScript files for handling frontend logic.
 
-> **Note**: You may create separate subfolders inside `static` for better organization (e.g., `css`, `js`).
+> **Note**: You may create separate subfolders inside `static` for better organization (e.g., `css`, `js`) depende sa trip niyo.
 
 ---
 
