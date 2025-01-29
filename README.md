@@ -85,3 +85,9 @@ To link static files (CSS, JS, images) in your templates, use the following synt
 #### CSS
 ```html
 <link rel="stylesheet" href="static/test.css">
+
+#### Install the ff resources:
+``` [1] Activate virtual env
+    [2] pip install flask
+    [3] pip install gunicorn (for render)
+
