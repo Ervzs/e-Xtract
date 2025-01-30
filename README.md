@@ -4,7 +4,7 @@ The organization is divided into categories based on functionality, as described
 
 ---
 
-## Structure
+## [Structure](#https://github.com/usergaia/STRUCTURE-eXtract/blob/main/README.md)
 
 - [BLUEPRINTS](#blueprints)
   - MODELS
