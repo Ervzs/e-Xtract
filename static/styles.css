@@ -1,0 +1,139 @@
+body{
+    background-color: rgb(31, 31, 31);
+    color: white;
+    font-family: Oswald, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+main{
+    margin: 20px;
+    text-align: center;
+}
+
+header{
+    background-color: rgb(50, 174, 59);
+}
+
+.header-container {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+}
+
+.navbar{
+    font-size: larger;
+    color: white;
+}
+
+.navbar ul{
+    list-style-type: none;
+    display: flex;  
+}
+
+.navbar a{
+    color: inherit;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+}
+
+.navbar a:hover{
+    background-color: rgb(31, 109, 36);
+}
+
+.navbar li{
+    margin-left: 20px;
+}
+
+.main_paragraphs{
+    font-size: x-large;
+    margin-left: 450px;
+    margin-right: 450px;
+    padding-bottom: 40px;
+}
+
+#title_h1{
+    text-align: center;
+    font-family: 'Racing Sans One';
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#title_main{
+    font-family: 'Racing Sans One';
+    padding-top: 60px;
+}
+
+#main_button{
+    background-color: rgb(50, 174, 59);
+    color: white;
+    text-decoration: none;
+    font-family: Oswald, Verdana;
+    font-size: 50px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#main_button a{
+    color: white;
+    text-decoration: none;
+}
+
+#main_button:hover{
+    background-color: rgb(31, 109, 36);
+    text-decoration: none;
+}
+
+#chatbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures spacing */
+    border: 4px solid white;
+    height: 680px;
+    overflow: auto;
+}
+
+#messages {
+    font-size: large;
+}
+
+
+.userInput {
+    display: inline-block;
+    position: fixed;
+    bottom: 0;
+    margin: auto;
+    padding-bottom: 10px;
+}
+
+#chatbotUserInput {
+    border: 1px solid #000000;
+    padding: 10px;
+    border-radius: 5px;
+    width: 1550px;
+    margin: auto;
+    font-size: x-large;
+}
+
+#sendButton {
+    background-color: rgb(50, 174, 59);
+    border: 1px solid #000000;
+    padding: 10px;
+    color: white;
+    width: 145px;
+    height: 50px;
+    margin: auto;
+    border-radius: 5px;
+    font-size: x-large;
+}
+
+#sendButton:hover {
+    background-color: rgb(31, 109, 36);
+}
+
+#chatbotTitle {
+    text-align: center;
+}
+
+.chatDisplay {
+    font-size: large;
+}
