@@ -92,4 +92,5 @@ To link static files (CSS, JS, images) in your templates, use the following synt
     [1] Activate virtual env
     [2] pip install flask
     [3] pip install gunicorn (for render)
+    [4] pip install google-generativeai
 ```
