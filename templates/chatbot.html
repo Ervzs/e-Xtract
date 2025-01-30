@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>e-Xtract | Chatbot</title>
+{% endblock %}
+
+{% block body %}
+<h1 id="chatbotTitle">Iko: the E-Waste Expert Chatbot</h1>
+<hr>
+<div id="chatbox">
+    <div id="messages"></div>
+    <div class="userInput">
+        <input type="text" id="chatbotUserInput" placeholder="Let's take care of your e-waste!" />
+        <button id="sendButton" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        let userMessage = document.getElementById("chatbotUserInput").value;
+        let messagesDiv = document.getElementById("messages");
+        messagesDiv.innerHTML += "<p><strong>You:</strong> " + userMessage + "</p>";
+        document.getElementById("chatbotUserInput").value = "";
+
+        fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMessage })
+        })
+        .then(response => response.json())
+        .then(data => {
+            messagesDiv.innerHTML += "<p><strong>Iko:</strong> " + data.response + "</p>";
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        })
+        .catch(error => console.error("Error:", error));
+    }
+</script>
+{% endblock %}
