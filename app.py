@@ -4,8 +4,9 @@ from blueprints.routing.routing import dispose
 from blueprints.models.extract import extract
 
 app = Flask(__name__)
+app.secret_key = "phaethon"  # Set a secure key for session management
 app.register_blueprint(views, url_prefix='/')
-app.register_blueprint(dispose, url_prefix='/')
+app.register_blueprint(dispose, url_prefix='/') 
 app.register_blueprint(extract, url_prefix='/')
 
 if __name__ == '__main__':
