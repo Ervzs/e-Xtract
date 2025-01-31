@@ -9,4 +9,5 @@
     [2] pip install flask
     [3] pip install gunicorn (for render)
     [4] pip install google-generativeai
+    [5] pip install python-dotenv
 ```
