@@ -10,9 +10,9 @@
         <h1 id="title_h1">e-Xtract</h1>
         <nav class="navbar">
             <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">Extract</a></li>
-                <li><a href="">About e-Xtract</a></li>
+                <li><a href=" {{ url_for('views.home') }}">Home</a></li>
+                <li><a href=" {{ url_for('extract.chatbot') }}">Extract</a></li>
+                <li><a href=" {{ url_for('routing.disposal_route') }}">Disposal Site Map</a></li>
             </ul>
         </nav>
     </div>
