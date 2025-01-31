@@ -10,6 +10,3 @@ def home():
 def about():
     return render_template('about.html') 
 
-@views_bp.route('/get-started')
-def get_started():
-    return render_template('get_started.html')
