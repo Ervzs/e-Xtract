@@ -1,13 +1,10 @@
+from blueprints import create_app
 from flask import Flask
-from blueprints.views.views import views
-from blueprints.routing.routing import dispose
-from blueprints.models.extract import extract
+from blueprints.extract import extract_bp
+from blueprints.routing import routing_bp
+from blueprints.views import views_bp
 
-app = Flask(__name__)
-app.secret_key = "phaethon"  # Set a secure key for session management
-app.register_blueprint(views, url_prefix='/')
-app.register_blueprint(dispose, url_prefix='/') 
-app.register_blueprint(extract, url_prefix='/')
+app = create_app()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
