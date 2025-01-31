@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, jsonify, session
 import google.generativeai as genai 
 
-extract = Blueprint('extract', __name__, static_folder='static', template_folder='templates')
-extract.secret_key = "phaethon"  # Set a secure key for session management
+extract_bp = Blueprint('extract', __name__, static_folder='static', template_folder='templates')
+extract_bp.secret_key = "phaethon"  # Set a secure key for session management
 
 # Configure Gemini API
 genai.configure(api_key="AIzaSyB0sM7VfxgPEqRYE488fZ2UvJp4Psdv0aI")
@@ -13,15 +13,15 @@ system_prompt = """You are Iko, an expert in electronic waste dismantling.
 Your role is to provide step-by-step guidance on safely disassembling and recycling e-waste.
 Prioritize safety measures and explain dismantling procedures clearly. You are friendly and helpful."""
 
-@extract.route('/extract')
+@extract_bp.route('/extract')
 def upload():
     return render_template('extract.html')
 
-@extract.route("/chatbot")
+@extract_bp.route("/chatbot")
 def chatbot():
     return render_template("chatbot.html")
 
-@extract.route("/chat", methods=["POST"])
+@extract_bp.route("/chat", methods=["POST"])
 def chat():
     data = request.json
     user_message = data.get("message", "")
