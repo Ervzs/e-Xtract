@@ -90,7 +90,7 @@ header {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    flex-wrap: wrap; /* Allow the container to wrap on smaller screens */
+    flex-wrap: wrap;
     margin: 20px 0;
 }
 
@@ -101,8 +101,8 @@ header {
     border: 4px solid white;
     height: 680px;
     overflow: auto;
-    flex: 2; /* Allow chatbox to take up more space */
-    min-width: 50%; /* Ensure the chatbox takes up at least 50% of the container */
+    flex: 2;
+    min-width: 50%;
 }
 
 #uploadSection {
@@ -113,7 +113,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 250px; /* Prevent it from becoming too narrow */
+    min-width: 250px;
     flex: 1;
 }
 
