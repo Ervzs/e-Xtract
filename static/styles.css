@@ -1,11 +1,10 @@
 body{
     background-color: rgb(31, 31, 31);
     color: white;
-    font-family: Oswald, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Oswald, 'League Spartan', Verdana, Geneva, Tahoma, sans-serif;
 }
 
 main{
-    margin: 20px;
     text-align: center;
 }
 
@@ -20,6 +19,7 @@ header{
 }
 
 .navbar{
+    margin-top: 10px;
     font-size: larger;
     color: white;
 }
@@ -27,13 +27,19 @@ header{
 .navbar ul{
     list-style-type: none;
     display: flex;  
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .navbar a{
+    font-family: 'League Spartan';
     color: inherit;
     text-decoration: none;
-    padding: 15px;
     display: block;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-right: 10px;
 }
 
 .navbar a:hover{
@@ -42,32 +48,38 @@ header{
 
 .navbar li{
     margin-left: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .main_paragraphs{
     font-size: x-large;
-    margin-left: 450px;
-    margin-right: 450px;
-    padding-bottom: 40px;
+    margin-left: 500px;
+    margin-right: 500px;
 }
 
-#title_h1{
+#title_h1 {
+    font-size: 42px; /* Adjust size as needed */
     text-align: center;
-    font-family: 'Racing Sans One';
-    padding-left: 20px;
-    padding-right: 20px;
+    font-family: 'League Spartan';
+    margin: 10px;
 }
 
 #title_main{
-    font-family: 'Racing Sans One';
-    padding-top: 60px;
+    font-family: 'League Spartan';
+    font-size: 80px;
+}
+
+#subtitle_main{
+    margin-top: 0em;
 }
 
 #main_button{
     background-color: rgb(50, 174, 59);
     color: white;
     text-decoration: none;
-    font-family: Oswald, Verdana;
+    font-family: 'League Spartan', Oswald, Verdana;
+    font-weight: bold;
     font-size: 50px;
     padding: 20px;
     border-radius: 20px;
