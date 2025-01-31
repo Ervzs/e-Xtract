@@ -1,17 +1,19 @@
 from flask import Blueprint, render_template, request, jsonify, session
+from dotenv import load_dotenv
+import os
 import google.generativeai as genai 
+
+load_dotenv()
 
 extract_bp = Blueprint('extract', __name__, static_folder='static', template_folder='templates')
 extract_bp.secret_key = "phaethon"  # Set a secure key for session management
 
 # Configure Gemini API
-genai.configure(api_key="AIzaSyB0sM7VfxgPEqRYE488fZ2UvJp4Psdv0aI")
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 # System prompt to guide chatbot behavior
-system_prompt = """You are Iko, an expert in electronic waste dismantling.
-Your role is to provide step-by-step guidance on safely disassembling and recycling e-waste.
-Prioritize safety measures and explain dismantling procedures clearly. You are friendly and helpful."""
+system_prompt = os.getenv("SYSTEM_PROMPT")
 
 
 @extract_bp.route("/chatbot")
