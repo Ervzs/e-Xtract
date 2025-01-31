@@ -63,7 +63,16 @@ header {
 
 #title_main {
     font-family: 'Racing Sans One';
-    padding-top: 60px;
+    font-size: 100px;
+    padding-top: 0%;
+}
+
+
+#subtitle_main {
+    font-family: 'Racing Sans One';
+    font-size: 40px;
+    padding-top: 0%;
+    
 }
 
 #main_button {
@@ -161,4 +170,129 @@ header {
 
 .chatDisplay {
     font-size: large;
+}
+
+.about-phae{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    margin-right:2px;
+}
+
+.about-phae h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.about-phae h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.about-phae p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.about-ext{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    margin-left:2px;
+    justify-content: space-between; 
+}
+
+.about-ext h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.about-ext h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.about-ext p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.about-devs{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+.about-devs h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.about-devs h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.about-devs p {
+    font-family: monospace;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+
+.team-members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.member {
+    width: 200px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.member h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.member p {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.home_image{
+    max-width: 100px;
+    height:auto;
+}
+
+#title_name{
+    font-family: 'Racing Sans One';
+    padding-top: 60px;
+    font-size: 80px;
+}
+
+#devs-title{
+    font-family: 'Courier New', Courier, monospace;
+    padding-top: 30px;
+    font-size: 80px;
+    
 }
