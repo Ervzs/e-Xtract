@@ -85,6 +85,7 @@ header {
     padding: 20px;
     border-radius: 20px;
     margin-bottom: 50px;
+    border: none;
 }
 
 #main_button a {
@@ -279,6 +280,12 @@ header {
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 10px;
+    transition: width 0.35s, height 0.35s;
+}
+
+.member img:hover {
+    width: 175px;
+    height: 175px;
 }
 
 .member h3 {
@@ -307,3 +314,4 @@ header {
     padding-top: 30px;
     font-size: 80px;
 }
+
