@@ -74,27 +74,47 @@ header {
     padding-top: 0%;
     
 }
-
 #main_button {
-    background-color: rgb(50, 174, 59);
-    color: white;
-    text-decoration: none;
-    font-family: 'League Spartan', Oswald, Verdana;
-    font-size: 50px;
-    font-weight: 700px;
-    padding: 20px;
-    border-radius: 20px;
-    margin-bottom: 50px;
+    width: 12em; 
+    height: 4em; 
+    border-radius: 30em;
+    font-size: 18px; 
+    font-family: inherit;
     border: none;
+    position: relative;
+    overflow: hidden;
+    background-color: yellow;
+    z-index: 1;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1), /* Light shadow for glow */
+                0 2px 4px rgba(0, 0, 0, 0.5); /* Dark shadow for depth */
+    color: black; 
+    transition: color 0.5s ease; /* Smooth transition for text color */
 }
 
-#main_button a {
-    color: white;
-    text-decoration: none;
+#main_button::before {
+    content: '';
+    width: 0;
+    height: 4em; 
+    border-radius: 30em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
+    transition: width 0.5s ease; /* Smooth transition for background width */
+    display: block;
+    z-index: -1;
+}
+
+#main_button:hover::before {
+    width: 12em; 
 }
 
 #main_button:hover {
-    background-color: rgb(31, 109, 36);
+    color: white; /* Change text color to white on hover */
+}
+
+#main_button a {
+    color: inherit; /* Inherit the text color from the button */
     text-decoration: none;
 }
 
@@ -203,9 +223,11 @@ header {
 .about-ext{
     margin: 0 auto;
     padding: 20px;
+    margin-top: 90px;
     text-align: center;
     margin-left:2px;
     justify-content: space-between; 
+    
 }
 
 .about-ext h1 {
