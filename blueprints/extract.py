@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify, session
+from flask import Blueprint, render_template, request, jsonify, session, Flask
 from dotenv import load_dotenv
 import os
 import google.generativeai as genai 

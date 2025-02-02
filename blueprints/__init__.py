@@ -3,6 +3,7 @@ from .extract import extract_bp
 from .routing import routing_bp
 from .views import views_bp
 
+
 __all__ = ["extract_bp", "routing_bp", "views_bp"]
 
 def create_app():
