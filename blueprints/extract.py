@@ -5,8 +5,7 @@ import google.generativeai as genai
 
 load_dotenv()
 
-extract_bp = Blueprint('extract', __name__, static_folder='static', template_folder='templates')
-extract_bp.secret_key = "phaethon"  # Set a secure key for session management
+extract_bp = Blueprint('extract', __name__, static_folder='static', template_folder='templates') #initialize blueprint
 
 # Configure Gemini API
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
