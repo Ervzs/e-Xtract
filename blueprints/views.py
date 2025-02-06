@@ -8,6 +8,10 @@ def home():
 
 @views_bp.route('/about') 
 def about():
-    return render_template('about.html') 
+    return render_template('about.html')
+
+@views_bp.route('/camera')
+def camera():
+    return render_template('camera.html')
 
 

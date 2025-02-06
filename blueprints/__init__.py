@@ -2,6 +2,7 @@ from flask import Flask
 from .extract import extract_bp
 from .routing import routing_bp
 from .views import views_bp
+from .detect import detection_bp
 
 
 def create_app():
@@ -13,5 +14,6 @@ def create_app():
     app.register_blueprint(extract_bp)
     app.register_blueprint(routing_bp)
     app.register_blueprint(views_bp)
+    app.register_blueprint(detection_bp)
 
     return app
