@@ -9,8 +9,8 @@
     [1] Activate virtual env
     [2] pip install flask
     [3] pip install gunicorn (for render)
-    [4] pip install google-generativeai
-    [5] pip install python-dotenv
+    [4] pip install google-generativeai  (tentative para sa gemini approach)
+    [5] pip install python-dotenv (tentative para sa gemini approach)
     [6] pip install opencv-python
     [7] pip install ultralytics
 
