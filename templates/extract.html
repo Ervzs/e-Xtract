@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>e-Xtract | Chatbot</title>
+{% endblock %}
+
+{% block body %}
+<header>
+    <div class="header-container">
+        <h1 id="title_h1">e-Xtract</h1>
+        <nav class="navbar">
+            <ul>
+                <li><a href=" {{ url_for('views.home') }}">Home</a></li>
+                <li><a href=" {{ url_for('extract.extract') }}">Extract</a></li>
+                <li><a href=" {{ url_for('routing.disposal_route') }}">Disposal Site Map</a></li>
+            </ul>
+        </nav>
+    </div>
+    <hr>
+</header>
+
+<div id="container">
+    <div id="left_cont_ext">
+        <div id="videobox">
+            <img src="{{ url_for('extract.video_feed') }}" id="videoFeed">
+        </div>
+
+        <div id="uploadSection">
+            <h3>Upload E-Waste Image</h3>
+            <input type="file" id="fileUpload" />
+            <button id="uploadButton" onclick="uploadFile()">Upload</button>
+        </div>
+    </div>
+
+        <div id="device_data">
+                <h3>DEVICE INFORMATION</h3>
+                <br>
+                <h5>Required Tools:</h5>
+                <h5>Model: </h5>
+                <h5>General Guidelines: </h5>
+                <h5>Notable/Valuable Parts: </h5>
+    </div>
+</div>
+
+<div id="dismantling_cont">
+    <h3>DISMANTLING STEPS</h3>
+    <br>
+    <h5>Step 1 (placeholder):</h5>
+    <h5>Step 2 (placeholder):</h5>
+    <h5>Step 3 (placeholder):</h5>
+    <h5>Step 4 (placeholder):</h5>
+    <h5>Step 5 (placeholder):</h5>
+</div>
+
+<script>
+    function uploadFile() {
+        let fileInput = document.getElementById("fileUpload");
+        let file = fileInput.files[0];
+
+        if (!file) {
+            alert("Please select a file to upload.");
+            return;
+        }
+
+        let formData = new FormData();
+        formData.append("file", file);
+
+        fetch("/upload", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("File uploaded successfully!");
+        })
+        .catch(error => {
+            console.error("Error uploading file:", error);
+        });
+    }
+</script>
+{% endblock %}
