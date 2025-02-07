@@ -22,7 +22,49 @@
 <div id="container">
     <div id="left_cont_ext">
         <div id="videobox">
+
+            <!-- This is for local server
             <img src="{{ url_for('extract.video_feed') }}" id="videoFeed">
+            -->
+
+            <video id="video" autoplay></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <button onclick="startStreaming()">Start Detection</button>
+            <script>
+                function startStreaming() {
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(stream => {
+                            document.getElementById("video").srcObject = stream;
+                            setInterval(sendFrame, 1000); // Send frames every second
+                        })
+                        .catch(error => console.error("Camera access error:", error));
+                }
+
+                function sendFrame() {
+                    let video = document.getElementById("video");
+                    let canvas = document.getElementById("canvas");
+                    let context = canvas.getContext("2d");
+
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    canvas.toBlob(blob => {
+                        let formData = new FormData();
+                        formData.append("frame", blob, "frame.jpg");
+                        fetch("{{ url_for('extract.video_feed') }}", {
+                            method: "POST",
+                            body: formData
+                        })
+                        .then(response => response.blob())
+                        .then(blob => {
+                            let url = URL.createObjectURL(blob);
+                            document.getElementById("videoFeed").src = url;
+                        })
+                        .catch(error => console.error("Frame send error:", error));
+                    }, "image/jpeg");
+                }
+            </script>
         </div>
 
         <div id="uploadSection">
