@@ -12,7 +12,7 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 
 model = YOLO(r"models/image-proc/best.pt")  # Load YOLO model
-cap = cv2.VideoCapture(1)  # Open webcam
+cap = cv2.VideoCapture(0)  # Open webcam
 
 @extract_bp.route("/extract")
 def extract():
