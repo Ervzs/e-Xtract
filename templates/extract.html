@@ -29,7 +29,10 @@
 
             <video id="video" autoplay></video>
             <canvas id="canvas" style="display: none;"></canvas>
+            <img id="videoFeed" />
+
             <button onclick="startStreaming()">Start Detection</button>
+
             <script>
                 function startStreaming() {
                     navigator.mediaDevices.getUserMedia({ video: true })
