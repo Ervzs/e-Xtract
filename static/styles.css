@@ -138,7 +138,21 @@ header {
     overflow: hidden;
     flex: 2;
     width: 800px;
+    position: relative; /* Add this to ensure children can inherit size */
+
 }
+#video, #canvas, #videoFeed {
+    width: 100%; /* Ensure these elements fill the container */
+    height: 100%; /* Ensure these elements fill the container */
+    object-fit: cover; /* Ensures the video covers the entire container */
+    top: 0;
+    left: 0;
+}
+
+#videoFeed {
+    display: none; /* Hide the image element initially */
+}
+
 
 #uploadSection {
     background-color: #2f2f2f;
