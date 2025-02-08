@@ -10,9 +10,9 @@
         <h1 id="title_h1">e-Xtract</h1>
         <nav class="navbar">
             <ul>
-                <li><a href=" {{ url_for('views.home') }}">Home</a></li>
-                <li><a href=" {{ url_for('extract.extract') }}">Extract</a></li>
-                <li><a href=" {{ url_for('routing.disposal_route') }}">Disposal Site Map</a></li>
+                <li><a href="{{ url_for('views.home') }}">Home</a></li>
+                <li><a href="{{ url_for('extract.extract') }}">Extract</a></li>
+                <li><a href="{{ url_for('routing.disposal_route') }}">Disposal Site Map</a></li>
             </ul>
         </nav>
     </div>
@@ -22,52 +22,13 @@
 <div id="container">
     <div id="left_cont_ext">
         <div id="videobox">
-
-            <!-- This is for local server
-            <img src="{{ url_for('extract.video_feed') }}" id="videoFeed">
-            -->
-
-            <video id="video" autoplay></video>
+            <!-- Video feed or uploaded image will be displayed here -->
+            <video id="video" autoplay style="display: none;"></video>
             <canvas id="canvas" style="display: none;"></canvas>
-            <img id="videoFeed" />
+            <img id="videoFeed" style="max-width: 100%; display: none;" />
 
-            <button onclick="startStreaming()">Start Detection</button>
-
-            <script>
-                function startStreaming() {
-                    navigator.mediaDevices.getUserMedia({ video: true })
-                        .then(stream => {
-                            document.getElementById("video").srcObject = stream;
-                            setInterval(sendFrame, 1000); // Send frames every second
-                        })
-                        .catch(error => console.error("Camera access error:", error));
-                }
-
-                function sendFrame() {
-                    let video = document.getElementById("video");
-                    let canvas = document.getElementById("canvas");
-                    let context = canvas.getContext("2d");
-
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-                    canvas.toBlob(blob => {
-                        let formData = new FormData();
-                        formData.append("frame", blob, "frame.jpg");
-                        fetch("{{ url_for('extract.video_feed') }}", {
-                            method: "POST",
-                            body: formData
-                        })
-                        .then(response => response.blob())
-                        .then(blob => {
-                            let url = URL.createObjectURL(blob);
-                            document.getElementById("videoFeed").src = url;
-                        })
-                        .catch(error => console.error("Frame send error:", error));
-                    }, "image/jpeg");
-                }
-            </script>
+            <button id="startButton" onclick="startStreaming()">Start Camera</button>
+            <button id="stopButton" onclick="stopStreaming()" style="display: none;">Stop Camera</button>
         </div>
 
         <div id="uploadSection">
@@ -77,13 +38,13 @@
         </div>
     </div>
 
-        <div id="device_data">
-                <h3>E-WASTE INFORMATION</h3>
-                <h5>Type: </h5>
-                <h5>Model: </h5>
-                <h5>Required Tools:</h5>
-                <h5>General Guidelines: </h5>
-                <h5>Notable/Valuable Parts: </h5>
+    <div id="device_data">
+        <h3>E-WASTE INFORMATION</h3>
+        <h5>Type: </h5>
+        <h5>Model: </h5>
+        <h5>Required Tools:</h5>
+        <h5>General Guidelines: </h5>
+        <h5>Notable/Valuable Parts: </h5>
     </div>
 </div>
 
@@ -97,6 +58,63 @@
 </div>
 
 <script>
+    let mediaStream = null;
+    let intervalId = null;
+
+    function startStreaming() {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                mediaStream = stream;
+                document.getElementById("video").srcObject = stream;
+                document.getElementById("video").style.display = "block";
+                document.getElementById("videoFeed").style.display = "none";
+                document.getElementById("startButton").style.display = "none";
+                document.getElementById("stopButton").style.display = "inline-block";
+
+                intervalId = setInterval(sendFrame, 1000); // Send frames every second
+            })
+            .catch(error => console.error("Camera access error:", error));
+    }
+
+    function stopStreaming() {
+        if (mediaStream) {
+            mediaStream.getTracks().forEach(track => track.stop());
+            mediaStream = null;
+        }
+        if (intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+        document.getElementById("video").style.display = "none";
+        document.getElementById("startButton").style.display = "inline-block";
+        document.getElementById("stopButton").style.display = "none";
+    }
+
+    function sendFrame() {
+        let video = document.getElementById("video");
+        let canvas = document.getElementById("canvas");
+        let context = canvas.getContext("2d");
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob(blob => {
+            let formData = new FormData();
+            formData.append("frame", blob, "frame.jpg");
+            fetch("{{ url_for('extract.video_feed') }}", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                let url = URL.createObjectURL(blob);
+                document.getElementById("videoFeed").src = url;
+            })
+            .catch(error => console.error("Frame send error:", error));
+        }, "image/jpeg");
+    }
+
     function uploadFile() {
         let fileInput = document.getElementById("fileUpload");
         let file = fileInput.files[0];
@@ -106,20 +124,34 @@
             return;
         }
 
+        stopStreaming(); // Stop the camera feed if it's running
+
+        // Disable the upload button while processing
+        document.getElementById("uploadButton").disabled = true;
+
         let formData = new FormData();
         formData.append("file", file);
 
-        fetch("/upload", {
+        fetch("{{ url_for('extract.process_image') }}", {
             method: "POST",
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            alert("File uploaded successfully!");
+        .then(response => response.blob())
+        .then(blob => {
+            // Enable the button after processing
+            document.getElementById("uploadButton").disabled = false;
+
+            // Creates an object URL for the processed image and display it
+            let url = URL.createObjectURL(blob);
+            let imgElement = document.getElementById("videoFeed");
+            imgElement.src = url;
+            imgElement.style.display = "block";
         })
         .catch(error => {
-            console.error("Error uploading file:", error);
+            document.getElementById("uploadButton").disabled = false;
+            console.error("Error processing image:", error);
         });
     }
 </script>
+
 {% endblock %}
