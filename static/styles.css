@@ -151,51 +151,25 @@ header {
     flex: 1;
 }
 
-#messages {
-    font-size: large;
-    flex-grow: 1;
-    overflow-y: auto;
-}
-
-.userInput {
-    display: inline-block;
-    position: fixed;
-    bottom: 0;
-    margin: auto;
-    padding-bottom: 10px;
-}
-
-#chatbotUserInput {
-    border: 1px solid #000000;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
+#uploadSection h3 {
+    font-family: 'League Spartan';
     font-size: x-large;
 }
 
-#sendButton {
-    background-color: rgb(50, 174, 59);
-    border: 1px solid #000000;
-    padding: 10px;
+#uploadButton {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 10px;
+    background-color: #0fd850;
+    border-radius: 5%;
+    border: none;
+    font-family: Oswald;
     color: white;
-    width: 145px;
-    height: 50px;
-    margin: auto;
-    border-radius: 5px;
-    font-size: x-large;
 }
 
-#sendButton:hover {
-    background-color: rgb(31, 109, 36);
-}
 
-#chatbotTitle {
-    text-align: center;
-}
-
-.chatDisplay {
-    font-size: large;
-}
 
 .about-phae{
     max-width: 800px;
@@ -711,6 +685,12 @@ video, img {
     flex: 1;
     height: 703px;
     width: 600px;
+    font-size: x-large;
+}
+
+#device_data h3 {
+    font-family: 'League Spartan';
+    font-size: xx-large;
 }
 
 #dismantling_cont {
@@ -725,6 +705,12 @@ video, img {
     height: relative;
     width: calc(100% - 120px); /* Adjust based on margins and gaps */
     margin: 20px auto; /* Center the container */
+    font-size: x-large;
+}
+
+#dismantling_cont h3 {
+    font-family: 'League Spartan';
+    font-size: xx-large;
 }
 
 .right_cont_ext{
