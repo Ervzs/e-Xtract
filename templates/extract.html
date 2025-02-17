@@ -71,6 +71,8 @@
                 document.getElementById("startButton").style.display = "none";
                 document.getElementById("stopButton").style.display = "inline-block";
 
+                document.getElementById("videobox").style.paddingBottom = "20px";
+
                 intervalId = setInterval(sendFrame, 1000); // Send frames every second
             })
             .catch(error => console.error("Camera access error:", error));
@@ -136,16 +138,35 @@
             method: "POST",
             body: formData
         })
-        .then(response => response.blob())
-        .then(blob => {
-            // Enable the button after processing
+        .then(response => response.json()) // Parse the JSON response
+        .then(data => {
             document.getElementById("uploadButton").disabled = false;
 
-            // Creates an object URL for the processed image and display it
-            let url = URL.createObjectURL(blob);
             let imgElement = document.getElementById("videoFeed");
-            imgElement.src = url;
+
+            // convert the image string back to bytes
+            let imageBytes = new Uint8Array(data.device_image.split("").map(c => c.charCodeAt(0))); 
+
+            // create a blob from the image bytes and display it
+            let blob = new Blob ([imageBytes], {type: "image/jpeg"});
+            imgElement.src = URL.createObjectURL(blob); 
             imgElement.style.display = "block";
+
+            // Display the detected object type under "Type"
+            let deviceType = document.querySelector("#device_data h5:nth-of-type(1)"); // Get the first <h5> element in device_data
+            if (data.device_type) {
+                deviceType.textContent = "Type: " + data.device_type;
+            } else {
+                deviceType.textContent = "Type: N/A";
+            }
+
+            // Display the detected object model under "Model" ####!di pa nagamit!####
+            let deviceModel = document.querySelector("#device_data h5:nth-of-type(2)"); // Get the second <h5> element in device_data
+            if (data.device_model) {
+                deviceModel.textContent = "Model: " + data.device_model;
+            } else {
+                deviceModel.textContent = "Model: N/A";
+            }
         })
         .catch(error => {
             document.getElementById("uploadButton").disabled = false;
