@@ -56,7 +56,8 @@ def video_feed():
             conf = box.conf[0]
 
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            cv2.putText(frame, f"{label} {conf:.2f}", (x1, y1 - 10),
+            
+            cv2.putText(frame, f"{label} {conf:.2f}", (x1, y1 - 10), #displays the details about the object detected
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     _, buffer = cv2.imencode(".jpg", frame)
@@ -68,20 +69,27 @@ def process_image():
     if "file" not in request.files:
         return jsonify({"error": "No file found"}), 400
 
+    # read the uploaded file and convert it to an OpenCV image
     file = request.files["file"].read()
     npimg = np.frombuffer(file, np.uint8)
     frame = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
 
-    # Resized the frame to the model's expected input size to help detect objects better
+    # Resized the frame to the model's expected input size
     frame = cv2.resize(frame, (640, 640))
 
+    # vriables that will store the detected object information
+    detected_type = None
+    detected_model = None # di pa nagamit
+    
+    # contains the detected objects by YOLO 
     results = model(frame, conf=0.1)  # Only works with lower confidence. Whenever it is increased, it is not able to detect anything in the image.
 
-    # Draws bounding boxes
+    # process detection results including bounding box and label
     for result in results:
         for box in result.boxes:
             x1, y1, x2, y2 = map(int, box.xyxy[0])
             label = model.names[int(box.cls[0])]
+            detected_type = label
             conf = box.conf[0]
 
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
@@ -90,4 +98,11 @@ def process_image():
 
     # Convert the processed frame back to bytes and send to client
     _, buffer = cv2.imencode(".jpg", frame)
-    return Response(buffer.tobytes(), mimetype="image/jpeg")
+    frame_bytes = buffer.tobytes()
+    
+    # changed return value from Response to jsonify because Response only returns the image and not the detected object type which is a string
+    return jsonify({
+        "device_image": frame_bytes.decode("latin1"),  # Convert bytes to string for JSON
+        "device_type": detected_type,  # Return the detected object type
+        "device_model": detected_model  # Return the detected
+    })
