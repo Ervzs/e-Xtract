@@ -131,16 +131,17 @@ header {
 
 #videobox {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
     border: 4px solid white;
-    height: 590px;
-    overflow: hidden;
-    flex: 2;
-    width: 800px;
-    position: relative; /* Add this to ensure children can inherit size */
-
+    height: auto; /* Let the container adapt to the image size */
+    width: auto; /* Let the container adapt to the image size */
+    overflow: visible; /* Ensure the image is not clipped */
+    background-color: white; /* Add a white background */
+    padding-bottom: 20px;
 }
+
+
 #video, #canvas, #videoFeed {
     width: 100%; /* Ensure these elements fill the container */
     height: 100%; /* Ensure these elements fill the container */
@@ -150,9 +151,31 @@ header {
 }
 
 #videoFeed {
-    display: none; /* Hide the image element initially */
+    display: none; /* Hide the image initially */
+    width: auto; /* Let the image use its intrinsic width */
+    height: auto; /* Let the image use its intrinsic height */
+    max-width: none; /* Remove any max-width constraints */
+    max-height: none; /* Remove any max-height constraints */
+    object-fit: none; /* Disable object-fit */
 }
 
+#startButton {
+    display: flex;
+    flex-direction: column;
+    border: 4px solid white;
+    height: 590px;
+    overflow: auto; /* Add scrollbars if the image is too large */
+    background-color: gray; /* Add a white background */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex: 2;
+    width: 800px;
+    position: relative; /* Add this to ensure children can inherit size */
+}
+
+#startButton:hover {
+    background-color: goldenrod;
+}
 
 #uploadSection {
     background-color: #2f2f2f;
@@ -330,7 +353,6 @@ header {
 video, img {
     width: inherit;
     height: inherit;
-    border: 2px solid black;
 }
 
 .left_cont_ext{
@@ -489,52 +511,6 @@ header {
     flex: 1;
 }
 
-#messages {
-    font-size: large;
-    flex-grow: 1;
-    overflow-y: auto;
-}
-
-.userInput {
-    display: inline-block;
-    position: fixed;
-    bottom: 0;
-    margin: auto;
-    padding-bottom: 10px;
-}
-
-#chatbotUserInput {
-    border: 1px solid #000000;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
-    font-size: x-large;
-}
-
-#sendButton {
-    background-color: rgb(50, 174, 59);
-    border: 1px solid #000000;
-    padding: 10px;
-    color: white;
-    width: 145px;
-    height: 50px;
-    margin: auto;
-    border-radius: 5px;
-    font-size: x-large;
-}
-
-#sendButton:hover {
-    background-color: rgb(31, 109, 36);
-}
-
-#chatbotTitle {
-    text-align: center;
-}
-
-.chatDisplay {
-    font-size: large;
-}
-
 .about-phae{
     max-width: 800px;
     margin: 0 auto;
@@ -675,12 +651,6 @@ header {
     font-family: 'League Spartan', Courier, monospace;
     padding-top: 30px;
     font-size: 80px;
-}
-
-video, img {
-    width: relative;
-    height: relative;
-    border: 2px solid black;
 }
 
 .left_cont_ext{

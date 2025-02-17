@@ -1,1 +1,1 @@
-//sample js file; dito niyo lagay js
+//sample.js
