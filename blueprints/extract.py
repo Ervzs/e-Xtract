@@ -82,7 +82,7 @@ def process_image():
     detected_model = None # di pa nagamit
     
     # contains the detected objects by YOLO 
-    results = model(frame, conf=0.1)  # Only works with lower confidence. Whenever it is increased, it is not able to detect anything in the image.
+    results = model(frame, conf=0.1)
 
     # process detection results including bounding box and label
     for result in results:
