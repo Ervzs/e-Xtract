@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify, session, Flask, Response, send_file
 import os
-import google.generativeai as genai
 import cv2
 import numpy as np
 from ultralytics import YOLO
@@ -12,9 +11,6 @@ extract_bp = Blueprint('extract', __name__) #initialize blueprint
 #create_app() in blueprints/__init__.py already sets static_folder and template_folder for the whole app.
 #No need to redefine it for each blueprint.
 
-# Configure Gemini API
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
 
 model = YOLO(r"models/image-proc/best.pt")  # Load YOLO model
 
@@ -22,8 +18,6 @@ model = YOLO(r"models/image-proc/best.pt")  # Load YOLO model
 Use only for local servers
 cap = cv2.VideoCapture(0)  # Open webcam
 '''
-
-
 
 def process_frame(frame):
     results = model(frame, conf=0.6)  # Run YOLO on the frame
