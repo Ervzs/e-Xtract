@@ -8,9 +8,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
-    {% block head %}{% endblock %}
+    {% block head %}{% endblock %} <!--This defines a placeholder for content that can be overridden by child templates. -->
 </head>
 <body>
+
+    <!-- Since this header will be available to all html file. I've placed it here in base to be used by child templates. -->
+    <header>
+        <div class="header-container">
+            <h1 id="title_h1">e-Xtract</h1>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{{ url_for('views.home')}}">Home</a></li>
+                    <li><a href="{{ url_for('extract.extract') }}">Extract</a></li>
+                    <li><a href="{{ url_for('routing.disposal_route') }}">Disposal Site Map</a></li>
+                </ul>
+            </nav>
+        </div>
+        <hr>
+    </header>
     {% block body %}{% endblock %}
 </body>
 </html>
