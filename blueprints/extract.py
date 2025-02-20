@@ -23,9 +23,7 @@ Use only for local servers
 cap = cv2.VideoCapture(0)  # Open webcam
 '''
 
-@extract_bp.route("/extract")
-def extract():
-    return render_template("extract.html")
+
 
 def process_frame(frame):
     results = model(frame, conf=0.6)  # Run YOLO on the frame
