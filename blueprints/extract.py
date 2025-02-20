@@ -6,7 +6,11 @@ import numpy as np
 from ultralytics import YOLO
 
 
-extract_bp = Blueprint('extract', __name__, static_folder='static', template_folder='templates') #initialize blueprint
+extract_bp = Blueprint('extract', __name__) #initialize blueprint
+
+#02.20.25 Ervzs removed static_folder and template_folder
+#create_app() in blueprints/__init__.py already sets static_folder and template_folder for the whole app.
+#No need to redefine it for each blueprint.
 
 # Configure Gemini API
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
@@ -18,8 +22,6 @@ model = YOLO(r"models/image-proc/best.pt")  # Load YOLO model
 Use only for local servers
 cap = cv2.VideoCapture(0)  # Open webcam
 '''
-
-
 
 @extract_bp.route("/extract")
 def extract():
