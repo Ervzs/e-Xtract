@@ -206,6 +206,9 @@ header {
     color: white;
 }
 
+#uploadButton:hover {
+    background-color: rgb(31, 109, 36);
+}
 
 
 .about-phae{
