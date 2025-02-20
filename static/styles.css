@@ -391,6 +391,7 @@ header {
 .navbar ul {
     list-style-type: none;
     display: flex;
+    margin-right: 20px;
 }
 
 .navbar a {

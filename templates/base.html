@@ -11,6 +11,18 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+    <header>
+        <div class="header-container">
+            <h1 id="title_h1">e-Xtract</h1>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{{ url_for('views.home') }}">Home</a></li>
+                    <li><a href="{{ url_for('extract.extract') }}">Extract</a></li>
+                </ul>
+            </nav>
+        </div>
+        <hr>
+    </header>
     {% block body %}{% endblock %}
 </body>
 </html>
