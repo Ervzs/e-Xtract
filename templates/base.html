@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     {% block head %}{% endblock %} <!--This defines a placeholder for content that can be overridden by child templates. -->
 </head>
+
 <body>
 
     <!-- Since this header will be available to all html file. I've placed it here in base to be used by child templates. -->
@@ -26,6 +28,6 @@
         </div>
         <hr>
     </header>
-    {% block body %}{% endblock %}
+    {% block body %}{% endblock %} <!--This defines a placeholder for content that can be overridden by child templates. -->
 </body>
 </html>
