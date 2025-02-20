@@ -9,7 +9,7 @@
             <video id="video" autoplay style="display: none;"></video>
             <canvas id="canvas" style="display: none;"></canvas>
             <img id="videoFeed" style="max-width: 100%; display: none;" />
-
+        
             <button id="startButton" onclick="startStreaming()">Start Camera</button>
             <button id="stopButton" onclick="stopStreaming()" style="display: none;">Stop Camera</button>
         </div>
@@ -48,7 +48,6 @@
 <script>
     let mediaStream = null;
     let intervalId = null;
-
     function startStreaming() {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
@@ -58,14 +57,11 @@
                 document.getElementById("videoFeed").style.display = "none";
                 document.getElementById("startButton").style.display = "none";
                 document.getElementById("stopButton").style.display = "inline-block";
-
-                document.getElementById("videobox").style.paddingBottom = "20px";
-
                 intervalId = setInterval(sendFrame, 1000); // Send frames every second
             })
             .catch(error => console.error("Camera access error:", error));
     }
-
+    
     function stopStreaming() {
         if (mediaStream) {
             mediaStream.getTracks().forEach(track => track.stop());
@@ -75,6 +71,7 @@
             clearInterval(intervalId);
             intervalId = null;
         }
+        document.getElementById("videobox").style.overflow = "hidden"; 
         document.getElementById("video").style.display = "none";
         document.getElementById("startButton").style.display = "inline-block";
         document.getElementById("stopButton").style.display = "none";
@@ -108,20 +105,20 @@
     function uploadFile() {
         let fileInput = document.getElementById("fileUpload");
         let file = fileInput.files[0];
-
+    
         if (!file) {
             alert("Please select a file to upload.");
             return;
         }
-
+    
         stopStreaming(); // Stop the camera feed if it's running
-
+    
         // Disable the upload button while processing
         document.getElementById("uploadButton").disabled = true;
-
+    
         let formData = new FormData();
         formData.append("file", file);
-
+    
         fetch("{{ url_for('extract.process_image') }}", {
             method: "POST",
             body: formData
@@ -129,27 +126,31 @@
         .then(response => response.json()) // Parse the JSON response
         .then(data => {
             document.getElementById("uploadButton").disabled = false;
-
+    
             let imgElement = document.getElementById("videoFeed");
-
-            // convert the image string back to bytes
-            let imageBytes = new Uint8Array(data.device_image.split("").map(c => c.charCodeAt(0))); 
-
-            // create a blob from the image bytes and display it
-            let blob = new Blob ([imageBytes], {type: "image/jpeg"});
-            imgElement.src = URL.createObjectURL(blob); 
+    
+            // Convert the image string back to bytes
+            let imageBytes = new Uint8Array(data.device_image.split("").map(c => c.charCodeAt(0)));
+    
+            // Create a blob from the image bytes and display it
+            let blob = new Blob([imageBytes], { type: "image/jpeg" });
+            imgElement.src = URL.createObjectURL(blob);
             imgElement.style.display = "block";
-
+    
+            // Adjust the image size to fit the container
+            imgElement.style.maxWidth = "100%";
+            imgElement.style.height = "auto";
+    
             // Display the detected object type under "Type"
-            let deviceType = document.querySelector("#device_data h5:nth-of-type(1)"); // Get the first <h5> element in device_data
+            let deviceType = document.querySelector("#device_data h5:nth-of-type(1)");
             if (data.device_type) {
                 deviceType.textContent = "Type: " + data.device_type;
             } else {
                 deviceType.textContent = "Type: N/A";
             }
-
-            // Display the detected object model under "Model" ####!di pa nagamit!####
-            let deviceModel = document.querySelector("#device_data h5:nth-of-type(2)"); // Get the second <h5> element in device_data
+    
+            // Display the detected object model under "Model"
+            let deviceModel = document.querySelector("#device_data h5:nth-of-type(2)");
             if (data.device_model) {
                 deviceModel.textContent = "Model: " + data.device_model;
             } else {
