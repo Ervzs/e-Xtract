@@ -11,5 +11,6 @@ def home():
     return render_template('home.html')
 
 
-
-
+@views_bp.route("/extract")
+def extract():
+    return render_template("extract.html")
