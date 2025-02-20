@@ -13,29 +13,31 @@ main {
 
 header {
     background-color: rgb(50, 174, 59);
+    padding-top: 10px;
 }
 
 .header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 }
 
 .navbar {
-    font-size: larger;
+    font-size: 16px; 
     color: white;
 }
 
 .navbar ul {
     list-style-type: none;
     display: flex;
+    padding: 0; 
+    margin: 0; 
 }
 
 .navbar a {
     color: inherit;
     text-decoration: none;
-    padding: 15px;
+    padding: 8px 10px; 
     display: block;
 }
 
@@ -44,7 +46,7 @@ header {
 }
 
 .navbar li {
-    margin-left: 20px;
+    margin-left: 10px; 
 }
 
 .main_paragraphs {
@@ -129,25 +131,15 @@ header {
     align-items: stretch; /* Ensure children stretch to the same height */
 }
 
-#videobox {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    border: 4px solid white;
-    height: auto; /* Let the container adapt to the image size */
-    width: auto; /* Let the container adapt to the image size */
-    overflow: visible; /* Ensure the image is not clipped */
-    background-color: white; /* Add a white background */
-    padding-bottom: 20px;
-}
 
 
 #video, #canvas, #videoFeed {
     width: 100%; /* Ensure these elements fill the container */
-    height: 100%; /* Ensure these elements fill the container */
+    height: auto; /* Ensure these elements fill the container */
     object-fit: cover; /* Ensures the video covers the entire container */
     top: 0;
     left: 0;
+    display: none;
 }
 
 #videoFeed {
@@ -157,6 +149,14 @@ header {
     max-width: none; /* Remove any max-width constraints */
     max-height: none; /* Remove any max-height constraints */
     object-fit: none; /* Disable object-fit */
+}
+
+#startButton, #stopButton {
+    margin-top: 10px; /* Adjust this value as needed */
+}
+
+#stopButton {
+    align-items: center; /* Center vertically */
 }
 
 #startButton {
@@ -391,6 +391,8 @@ header {
 .navbar ul {
     list-style-type: none;
     display: flex;
+    margin-right: 20px;
+    
 }
 
 .navbar a {
@@ -492,12 +494,17 @@ header {
 #videobox {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     border: 4px solid white;
-    height: 590px;
-    overflow: hidden;
+    min-height: 530px; /* Use min-height instead of height */
     flex: 2;
     min-width: 50%;
+    position: relative;
+    padding-bottom: 0;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-color: white; /* Add a white background */
+    width: 800px;
+    overflow: hidden; /* Default overflow behavior */
 }
 
 #uploadSection {
