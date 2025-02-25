@@ -77,6 +77,7 @@
         document.getElementById("stopButton").style.display = "none";
     }
 
+    // This is for live video capture process.
     function sendFrame() {
         let video = document.getElementById("video");
         let canvas = document.getElementById("canvas");
@@ -84,15 +85,18 @@
 
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        context.drawImage(video, 0, 0, canvas.width, canvas.height); // Takes a snapshot from the video.
 
-        canvas.toBlob(blob => {
+        //- Converts the frame to an image file and sent it to the server
+        canvas.toBlob(blob => { //converts the canvas frame to a JPEG image.
             let formData = new FormData();
             formData.append("frame", blob, "frame.jpg");
-            fetch("{{ url_for('extract.video_feed') }}", {
+            fetch("{{ url_for('extract.video_feed') }}", { // Sends the image as a POST request to your video_feed() function in Python.
                 method: "POST",
                 body: formData
             })
+
+            //JavaScript receives the image & updates the UI
             .then(response => response.blob())
             .then(blob => {
                 let url = URL.createObjectURL(blob);
@@ -102,6 +106,7 @@
         }, "image/jpeg");
     }
 
+    // For static image process.
     function uploadFile() {
         let fileInput = document.getElementById("fileUpload");
         let file = fileInput.files[0];
@@ -115,10 +120,12 @@
     
         // Disable the upload button while processing
         document.getElementById("uploadButton").disabled = true;
-    
+
+
         let formData = new FormData();
         formData.append("file", file);
-    
+
+        //Sends the image as a POST request to process_image() in extract.py
         fetch("{{ url_for('extract.process_image') }}", {
             method: "POST",
             body: formData
