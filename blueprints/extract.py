@@ -28,8 +28,16 @@ This python file is responsible for processing the frames from a video or images
 '''
 
 
-def process_frame(frame):
+def process_frame(frame, conf_threshold=0.6):
+    '''
+    This function takes an image frame, runs YOLO object detection, and draws bounding boxes with labels.
+    '''
+
     results = model(frame, conf=0.6)  # Run YOLO on the frame which will return detected object with 60% confidence score.
+
+    # variables that will store the detected object information
+    detected_type = None  # Variable to store detected object type
+    detected_model = None  # di pa nagamit
 
     for result in results:
         for box in result.boxes:
@@ -42,36 +50,23 @@ def process_frame(frame):
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     _, buffer = cv2.imencode(".jpg", frame) # Converts the frame into JPG format
-    return buffer.tobytes() # The frame is returned as bytes
+    return buffer.tobytes(), detected_type if detected_type else "", detected_model if detected_model else "" # The frame is returned as bytes
 
 
+
+@extract_bp.route("/video_feed", methods=["POST"]) # route so functions in extract.html can access it.
 '''
  HTTP responses are typically sent as text or binary data. Since images are binary, we must encode them into a transferable format like JPEG bytes.
 '''
-
-@extract_bp.route("/video_feed", methods=["POST"]) # route so functions in extract.html can access it.
 def video_feed():
     file = request.files["frame"].read() # .read() converts it into raw binary data (bytes).
     npimg = np.frombuffer(file, np.uint8) # treats the binary data as an array of unsigned 8-bit integers (0–255), just like image pixels.
     frame = cv2.imdecode(npimg, cv2.IMREAD_COLOR) # cv2.imdecode() converts the array into an actual image in OpenCV format.
 
-    results = model(frame, conf=0.6)  # Run YOLO on the frame
+    processed_frame, _, _ = process_frame(frame, conf_threshold=0.6)
 
-    for result in results:
-        for box in result.boxes:
-            x1, y1, x2, y2 = map(int, box.xyxy[0])
-            label = model.names[int(box.cls[0])]
-            conf = box.conf[0]
-
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            
-            cv2.putText(frame, f"{label} {conf:.2f}", (x1, y1 - 10), #displays the details about the object detected
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
-    _, buffer = cv2.imencode(".jpg", frame)
-    return Response(buffer.tobytes(), mimetype="image/jpeg") #Python processes the frame with YOLO & sends back a processed image
+    return Response(processed_frame, mimetype="image/jpeg") #Python processes the frame with YOLO & sends back a processed image
                                                              # It is returned to extract.html in the sendFrame(), line 95
-
 
 @extract_bp.route("/process_image", methods=["POST"])
 def process_image():
@@ -86,32 +81,12 @@ def process_image():
     # Resized the frame to the model's expected input size
     frame = cv2.resize(frame, (640, 640))
 
-    # vriables that will store the detected object information
-    detected_type = None
-    detected_model = None # di pa nagamit
-    
-    # contains the detected objects by YOLO 
-    results = model(frame, conf=0.1)
-
     # process detection results including bounding box and label
-    for result in results:
-        for box in result.boxes:
-            x1, y1, x2, y2 = map(int, box.xyxy[0])
-            label = model.names[int(box.cls[0])]
-            detected_type = label
-            conf = box.conf[0]
-
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            cv2.putText(frame, f"{label} {conf:.2f}", (x1, y1 - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
-    # Convert the processed frame back to bytes and send to client
-    _, buffer = cv2.imencode(".jpg", frame)
-    frame_bytes = buffer.tobytes()
+    processed_frame, detected_type, detected_model = process_frame(frame, conf_threshold=0.6)
     
     # changed return value from Response to jsonify because Response only returns the image and not the detected object type which is a string
     return jsonify({
-        "device_image": frame_bytes.decode("latin1"),  # Convert bytes to string for JSON
+        "device_image": processed_frame.decode("latin1"),  # Convert bytes to string for JSON
         "device_type": detected_type,  # Return the detected object type
         "device_model": detected_model  # Return the detected
     })
