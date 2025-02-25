@@ -9,3 +9,13 @@
 -  serves as a layout template that other pages or child template inherits.
 - Uses `{% block %}` for Dynamic Content: Child templates override only specific sections while keeping the rest intact.
 - **Improves Maintainability**: Changes to global UI elements (like navigation bars) affect all pages automatically.
+
+### `extract.html` (JavaScript Concepts)
+
+- DOM Manipulation (`document.getElementById()`, `.src`, `.style.display`)
+- Event Handling (`.then()`, `.catch()`)
+- Basic Fetch API (`fetch(url, { method: "POST", body: formData })`)
+- Media APIs (`navigator.mediaDevices.getUserMedia()` → Captures webcam video)
+- Canvas API (`canvas.toBlob()` → Converts an image for upload)
+- FormData API (`new FormData()` → Sends files to the backend)
+- Blob & Binary Handling (`new Blob()`, `Uint8Array()`)
