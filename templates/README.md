@@ -19,3 +19,9 @@
 - Canvas API (`canvas.toBlob()` → Converts an image for upload)
 - FormData API (`new FormData()` → Sends files to the backend)
 - Blob & Binary Handling (`new Blob()`, `Uint8Array()`)
+
+### Process of Image Processing
+- upload an image this is in image bytes and convert it to byes to be sent to the server.
+- Then in the backend it is converted again to image byte to be processed by the YOLO model.
+- After the process it is converted again to bytes to be sent to the front-end.
+- lastly the front end will convert this into a displayable image.
