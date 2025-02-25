@@ -6,6 +6,9 @@ views_bp = Blueprint('views', __name__) #initialize blueprint
 #create_app() in blueprints/__init__.py already sets static_folder and template_folder for the whole app.
 #No need to redefine it for each blueprint.
 
+
+# Responsible for routing and connecting backend and frontend.
+# in home.html line 11, you could see being used 'views.extract'
 @views_bp.route('/') 
 def home():
     return render_template('home.html')
