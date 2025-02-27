@@ -54,10 +54,11 @@ def process_frame(frame, conf_threshold=0.6):
 
 
 
-@extract_bp.route("/video_feed", methods=["POST"]) # route so functions in extract.html can access it.
-'''
- HTTP responses are typically sent as text or binary data. Since images are binary, we must encode them into a transferable format like JPEG bytes.
-'''
+
+
+@extract_bp.route("/video_feed", methods=["POST"]) # route so functions in extract.html can access it
+#HTTP responses are typically sent as text or binary data. Since images are binary, we must encode them into a transferable format like JPEG bytes.
+
 def video_feed():
     file = request.files["frame"].read() # .read() converts it into raw binary data (bytes).
     npimg = np.frombuffer(file, np.uint8) # treats the binary data as an array of unsigned 8-bit integers (0–255), just like image pixels.
