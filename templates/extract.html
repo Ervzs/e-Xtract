@@ -150,19 +150,24 @@
     
             // Display the detected object type under "Type"
             let deviceType = document.querySelector("#device_data h5:nth-of-type(1)");
-            if (data.device_type) {
-                deviceType.textContent = "Type: " + data.device_type;
-            } else {
-                deviceType.textContent = "Type: N/A";
-            }
+            deviceType.textContent = "Type: " + data.device_type;
     
             // Display the detected object model under "Model"
             let deviceModel = document.querySelector("#device_data h5:nth-of-type(2)");
-            if (data.device_model) {
-                deviceModel.textContent = "Model: " + data.device_model;
-            } else {
-                deviceModel.textContent = "Model: N/A";
-            }
+            deviceModel.textContent = "Model: " + data.device_model;
+
+            // Display the reqTools 
+            let reqTools = document.querySelector("#device_data h5:nth-of-type(3)");
+            reqTools.textContent = "Required Tools: " + data.device_model;
+
+            // Display the genInstructions
+            let genInstructions = document.querySelector("#device_data h5:nth-of-type(4)");
+            genInstructions.textContent = "General genInstructions: " + data.device_model;
+
+            // Display the valuable comps
+            let valComps = document.querySelector("#device_data h5:nth-of-type(5)");
+            valComps.textContent = "Notable/Valuable Parts: " + data.val_comps.join(", ");
+    
         })
         .catch(error => {
             document.getElementById("uploadButton").disabled = false;
