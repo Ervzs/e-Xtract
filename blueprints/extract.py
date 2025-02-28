@@ -27,34 +27,52 @@ This python file is responsible for processing the frames from a video or images
 3. process_image() - Handles uploaded images, processes them using YOLO, and returns both image and detected object.
 '''
 
-
 def process_frame(frame, conf_threshold=0.6):
     '''
     This function takes an image frame, runs YOLO object detection, and draws bounding boxes with labels.
     '''
-
     results = model(frame, conf=0.6)  # Run YOLO on the frame which will return detected object with 60% confidence score.
 
-    # variables that will store the detected object information
-    detected_type = None  # Variable to store detected object type
-    detected_model = None  # di pa nagamit
+    #Return value initialization
+    detected_type = None  
+    detected_model = None  
+    detected_val_comps = [] 
+    req_tools = []
+    gen_instruction = None
 
+    # Valuable components list
+    val_comps = ['battery', 'camera', 'Vibrator Motor', 'screws', 'flex cables', 'Speaker', 'other-parts'] 
+    
     for result in results:
         for box in result.boxes:
-            x1, y1, x2, y2 = map(int, box.xyxy[0]) # This extracts the bounding box.
-            label = model.names[int(box.cls[0])] # This extracts label. box.cls[0] is the class index, which is mapped to model.names to get the object’s name.
-            conf = box.conf[0] # This extracts the confidence score.
+            x1, y1, x2, y2 = map(int, box.xyxy[0])  # This extracts the bounding box.
+            label = model.names[int(box.cls[0])]  # This extracts label. box.cls[0] is the class index, which is mapped to model.names to get the object’s name.
+            conf = box.conf[0]  # This extracts the confidence score.
+            
+            # tatanggalin soon, for testing lang in passing detected ojects to variables
+            detected_type = label
 
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2) #This is the bounding box
-            cv2.putText(frame, f"{label} {conf:.2f}", (x1, y1 - 10), # The label (object name) and confidence score are drawn above the box.
+            cv2.putText(frame, f"{label} {conf:.2f}", (x1, y1 - 10),  # The label (object name) and confidence score are drawn above the box.
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-    _, buffer = cv2.imencode(".jpg", frame) # Converts the frame into JPG format
-    return buffer.tobytes(), detected_type if detected_type else "", detected_model if detected_model else "" # The frame is returned as bytes
+            # Responsible for detecting valuable components and ignores duplicates
+            if label in val_comps:
+                if label in detected_val_comps:
+                    continue
+                detected_val_comps.append(label)
 
+    _, buffer = cv2.imencode(".jpg", frame)  # Converts the frame into JPG format
 
-
-
+    #return values
+    return ( 
+        buffer.tobytes(), 
+        detected_type if detected_type else "N/A",  
+        detected_model if detected_model else "N/A",  
+        detected_val_comps if detected_val_comps else ["N/A"],
+        req_tools if req_tools else ["N/A"],
+        gen_instruction if gen_instruction else "N/A"
+    )
 
 @extract_bp.route("/video_feed", methods=["POST"]) # route so functions in extract.html can access it
 #HTTP responses are typically sent as text or binary data. Since images are binary, we must encode them into a transferable format like JPEG bytes.
@@ -74,20 +92,22 @@ def process_image():
     if "file" not in request.files:
         return jsonify({"error": "No file found"}), 400
 
-    # read the uploaded file and convert it to an OpenCV image
+    # Read the uploaded file and convert it to an OpenCV image
     file = request.files["file"].read()
     npimg = np.frombuffer(file, np.uint8)
     frame = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
 
-    # Resized the frame to the model's expected input size
+    # Resize the frame to the model's expected input size
     frame = cv2.resize(frame, (640, 640))
 
-    # process detection results including bounding box and label
-    processed_frame, detected_type, detected_model = process_frame(frame, conf_threshold=0.6)
-    
-    # changed return value from Response to jsonify because Response only returns the image and not the detected object type which is a string
+    # Process detection results including bounding box and labels
+    processed_frame, detected_type, detected_model, detected_val_comps, req_tools, gen_instruction = process_frame(frame, conf_threshold=0.6)
+
     return jsonify({
-        "device_image": processed_frame.decode("latin1"),  # Convert bytes to string for JSON
-        "device_type": detected_type,  # Return the detected object type
-        "device_model": detected_model  # Return the detected
+        "device_image": processed_frame.decode("latin1"),  # Convert bytes to string for JSON (html will convert it back to bytes)
+        "device_type": detected_type,  
+        "device_model": detected_model,
+        "val_comps": detected_val_comps,
+        "req_tools": req_tools,
+        "gen_instruction": gen_instruction
     })
