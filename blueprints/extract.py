@@ -33,11 +33,13 @@ def choose_model():
     '''
     
     global model
-    device = request.args.get('device', None)  # Get the device from the choose_device.html.
+    device = request.args.get('device', None)  # Get the device from the choose_device.html
 
     if device == 'mobile':
         model = YOLO(r"models/image-proc/best.pt")  # Load smartphone model
     elif device == 'laptop':
+        pass
+    elif device == 'desktop':
         pass
     elif device == 'telecom':
         pass
