@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body %} <!-- Will override the placeholder in the base.html -->
+
+<main>
+    <h1 id="title_main">CATEGORIES</h1>
+    <button>
+        <a href="{{ url_for('extract.choose_model', device='mobile') }}">Mobile</a>
+    </button>
+    
+    <button>
+        <a href="{{ url_for('extract.choose_model', device='laptop') }}">Desktop/Laptop</a>
+    </button>
+
+    <button>
+        <a href="{{ url_for('extract.choose_model', device='telecom') }}">Telecom</a>
+    </button>
+</main>
+
+{% endblock %}
