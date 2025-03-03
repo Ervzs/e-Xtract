@@ -17,3 +17,7 @@ def home():
 @views_bp.route("/extract")
 def extract():
     return render_template("extract.html")
+
+@views_bp.route("/choose")
+def choose_device():
+    return render_template("choose_device.html")
