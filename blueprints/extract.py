@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify, session, Flask, Response, send_file
+from flask import Blueprint, render_template, request, jsonify, session, Flask, Response, send_file, url_for, redirect
 import os
 import cv2
 import numpy as np
@@ -12,7 +12,6 @@ extract_bp = Blueprint('extract', __name__) #initialize blueprint
 #No need to redefine it for each blueprint.
 
 
-model = YOLO(r"models/image-proc/best.pt")  # Load YOLO model
 
 '''
 Use only for local servers
@@ -26,6 +25,28 @@ This python file is responsible for processing the frames from a video or images
 2. video_feed() - Handles video frames uploaded via HTTP POST request and returns a processed image.
 3. process_image() - Handles uploaded images, processes them using YOLO, and returns both image and detected object.
 '''
+
+@extract_bp.route("/choose_mod")
+def choose_model():
+    '''
+    This function is responsible for choosing the model to be used in YOLO.
+    '''
+    
+    global model
+    device = request.args.get('device', None)  # Get the device from the choose_device.html.
+
+    if device == 'mobile':
+        model = YOLO(r"models/image-proc/best.pt")  # Load smartphone model
+    elif device == 'laptop':
+        pass
+    elif device == 'telecom':
+        pass
+    else:
+        redirect(url_for('views.home'))
+
+    # Redirect to the extract route
+    return redirect(url_for('views.extract'))
+    
 
 def process_frame(frame, conf_threshold=0.6):
     '''
